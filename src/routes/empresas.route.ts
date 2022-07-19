@@ -1,0 +1,14 @@
+import { Router } from "express";
+import controller from "../controllers/empresas.controller";
+import { autenticacaoMiddleware } from "../middlewares/autenticacao.middleware";
+import verificarIds from "../middlewares/verificarIds.middleware";
+import { seExisteEmpresaMiddleware } from "../middlewares/verificacaoExistencia.middleware";
+import verificarCampos from "../middlewares/verificarCampos.middleware";
+const empresas = Router();
+empresas.post("/", verificarCampos, seExisteEmpresaMiddleware, controller.store);
+empresas.use(autenticacaoMiddleware);
+empresas.get("/", controller.index);
+empresas.get("/:id", verificarIds, controller.show);
+empresas.patch("/:id", verificarIds, verificarCampos, controller.update);
+empresas.delete("/:id", verificarIds, controller.delete);
+export default empresas;

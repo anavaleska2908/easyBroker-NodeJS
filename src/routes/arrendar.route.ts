@@ -1,0 +1,13 @@
+import { Router } from "express";
+import controller from "../controllers/arrendar.controller";
+import { seExisteUsuarioMiddleware } from "../middlewares/verificacaoExistencia.middleware";
+import verificarCampos from "../middlewares/verificarCampos.middleware";
+import verificarIds from "../middlewares/verificarIds.middleware";
+const arrendar = Router();
+arrendar.post("/", verificarCampos, controller.store);
+arrendar.get("/", controller.index);
+arrendar.get("/:id", verificarIds, controller.show);
+arrendar.get("/imovel/:id", verificarIds, controller.showImovel);
+arrendar.patch("/:id", verificarIds, verificarCampos, controller.update);
+arrendar.delete("/:id", verificarIds, controller.delete);
+export default arrendar;

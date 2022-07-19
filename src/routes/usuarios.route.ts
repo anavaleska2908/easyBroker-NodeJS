@@ -1,0 +1,14 @@
+import { Router } from "express";
+import controller from "../controllers/usuarios.controller";
+import { autenticacaoMiddleware } from "../middlewares/autenticacao.middleware";
+import verificarIds from "../middlewares/verificarIds.middleware";
+import { seExisteUsuarioMiddleware } from "../middlewares/verificacaoExistencia.middleware";
+import verificarCampos from "../middlewares/verificarCampos.middleware";
+const usuarios = Router();
+usuarios.post("/", verificarCampos, seExisteUsuarioMiddleware, controller.store);
+usuarios.use(autenticacaoMiddleware);
+usuarios.get("/", controller.index);
+usuarios.get("/:id", verificarIds, controller.show);
+usuarios.patch("/:id", verificarIds, verificarCampos, controller.update);
+usuarios.delete("/:id", verificarIds, controller.delete);
+export default usuarios;

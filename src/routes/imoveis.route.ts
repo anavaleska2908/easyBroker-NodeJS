@@ -1,0 +1,12 @@
+import { Router } from "express";
+import controller from "../controllers/imoveis.controller";
+import { seExisteImovelMiddleware } from "../middlewares/verificacaoExistencia.middleware";
+import verificarCampos from "../middlewares/verificarCampos.middleware";
+import verificarIds from "../middlewares/verificarIds.middleware";
+const imoveis = Router();
+imoveis.get("/", controller.index);
+imoveis.get("/:id", verificarIds, controller.show);
+imoveis.post("/", verificarCampos, seExisteImovelMiddleware, controller.store);
+imoveis.patch("/:id", verificarIds, verificarCampos, controller.update);
+imoveis.delete("/:id", verificarIds, controller.delete);
+export default imoveis;

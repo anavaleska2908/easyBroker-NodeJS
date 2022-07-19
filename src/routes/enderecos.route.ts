@@ -1,0 +1,11 @@
+import { Router } from "express";
+import controller from "../controllers/enderecos.controller";
+import verificarCampos from "../middlewares/verificarCampos.middleware";
+import verificarIds from "../middlewares/verificarIds.middleware";
+const enderecos = Router();
+enderecos.get("/", controller.index);
+enderecos.get("/:id", verificarIds, controller.show);
+enderecos.post("/", verificarCampos, controller.store);
+enderecos.patch("/:id", verificarIds, verificarCampos, controller.update);
+enderecos.delete("/:id", verificarIds, controller.delete);
+export default enderecos;
