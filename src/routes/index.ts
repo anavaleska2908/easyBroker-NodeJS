@@ -7,7 +7,6 @@ import agendamentoRoute from "./agendamentos.route";
 import arrendarRoute from "./arrendar.route";
 import enderecosRoute from "./enderecos.route";
 import { autenticacaoMiddleware } from "../middlewares/autenticacao.middleware";
-import verificarCampos from "../middlewares/verificarCampos.middleware";
 export const AppRoutes = (app: Express) => {
     app.use("/login", loginRoute);
     app.use("/empresas", empresaRoute);
